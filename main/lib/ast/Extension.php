@@ -294,6 +294,12 @@ class Extension
             "('" . $this->account . "', '', '" . $this->name . "', 'novm', 0, '', '', '', '" . $this->account . "', 'default', '', '', '', '', '', '')";
         return $sql_script;
     }
+    public function insert_into_pjsip_users_sqlscript()
+    {
+        $sql_script = "INSERT IGNORE INTO users (extension, password, name, voicemail, ringtimer, noanswer, recording, outboundcid, sipname, mohclass, noanswer_cid, busy_cid, chanunavail_cid, noanswer_dest, busy_dest, chanunavail_dest) VALUES " .
+            "('" . $this->account . "', '', '" . $this->name . "', 'novm', 0, '', '', '', '', 'default', '', '', '', '', '', '')";
+        return $sql_script;
+    }
 
     public function update_users_sqlscript()
     {
@@ -301,6 +307,11 @@ class Extension
         return $sql_script;
     }
 
+    public function update_pjsip_users_sqlscript()
+    {
+        $sql_script = "UPDATE users SET extension='" . $this->account . "', name='" . $this->name . "' WHERE extension = '" . $this->account . "'";
+        return $sql_script;
+    }
     public function delete_users_sqlscript()
     {
         $sql_script = "DELETE FROM users WHERE extension = '" . $this->account . "'";

@@ -240,7 +240,7 @@ class Elastix
         $stmt0->execute();
         $row = $stmt0->fetch(PDO::FETCH_ASSOC);
         if (!$row) {
-            $stmt1 = $this->db->exec($ext->insert_into_users_sqlscript());
+            $stmt1 = $this->db->exec($ext->insert_into_pjsip_users_sqlscript());
             $stmt2 = $this->db->exec($ext->insert_into_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_pjsip_sqlscript());
 
@@ -308,7 +308,7 @@ class Elastix
         );
         $ext = new Extension($dict, "update");
         $stmt1 = $this->db->exec($ext->update_pjsip_sqlscript());
-        $stmt2 = $this->db->exec($ext->update_users_sqlscript());
+        $stmt2 = $this->db->exec($ext->update_pjsip_users_sqlscript());
         $this->apply_config();
         header('Content-Type: application/json');
         echo '{"status": "UPDATE OK", "code": 200}';
