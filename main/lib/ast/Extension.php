@@ -39,12 +39,68 @@ class Extension{
 			$this->account = $dict["account"];
 		} else if ($flag === "delete"){
 			$this->account = $dict["account"];
+		} else if ($flag === "pjsip_insert" || $flag == "pjsip_update") {
+			$this->account = $dict["account"]; 
+			$this->accountcode = $dict["accountcode"]; 
+			$this->aggregate_mwi = $dict["aggregate_mwi"]; 
+			$this->allow = $dict["allow"]; 
+			$this->avpf = $dict["avpf"]; 
+			$this->bundle = $dict["bundle"]; 
+			$this->callerid = $dict["callerid"]; 
+			$this->context = $dict["context"]; 
+			$this->defaultuser = $dict["defaultuser"]; 
+			$this->device_state_busy_at = $dict["device_state_busy_at"]; 
+			$this->dial = $dict["dial"]; 
+			$this->direct_media = $dict["direct_media"]; 
+			$this->disallow = $dict["disallow"]; 
+			$this->dtmfmode = $dict["dtmfmode"]; 
+			$this->force_rport = $dict["force_rport"]; 
+			$this->icesupport = $dict["icesupport"]; 
+			$this->match = $dict["match"]; 
+			$this->max_audio_streams = $dict["max_audio_streams"]; 
+			$this->max_contacts = $dict["max_contacts"]; 
+			$this->max_video_streams = $dict["max_video_streams"]; 
+			$this->maximum_expiration = $dict["maximum_expiration"]; 
+			$this->media_encryption = $dict["media_encryption"]; 
+			$this->media_encryption_optimistic = $dict["media_encryption_optimistic"]; 
+			$this->media_use_received_transport = $dict["media_use_received_transport"]; 
+			$this->message_context = $dict["message_context"]; 
+			$this->minimum_expiration = $dict["minimum_expiration"]; 
+			$this->mwi_subscription = $dict["mwi_subscription"]; 
+			$this->namedcallgroup = $dict["namedcallgroup"]; 
+			$this->namedpickupgroup = $dict["namedpickupgroup"]; 
+			$this->outbound_auth = $dict["outbound_auth"]; 
+			$this->outbound_proxy = $dict["outbound_proxy"]; 
+			$this->qualifyfreq = $dict["qualifyfreq"]; 
+			$this->refer_blind_progress = $dict["refer_blind_progress"]; 
+			$this->remove_existing = $dict["remove_existing"]; 
+			$this->rewrite_contact = $dict["rewrite_contact"]; 
+			$this->rtcp_mux = $dict["rtcp_mux"]; 
+			$this->rtp_symmetric = $dict["rtp_symmetric"]; 
+			$this->rtp_timeout = $dict["rtp_timeout"]; 
+			$this->rtp_timeout_hold = $dict["rtp_timeout_hold"]; 
+			$this->secret = $dict["secret"]; 
+			$this->secret_origional = $dict["secret_origional"]; 
+			$this->send_connected_line = $dict["send_connected_line"]; 
+			$this->sendrpid = $dict["sendrpid"]; 
+			$this->sipdriver = $dict["sipdriver"]; 
+			$this->timers = $dict["timers"]; 
+			$this->timers_min_se = $dict["timers_min_se"]; 
+			$this->transport = $dict["transport"]; 
+			$this->trustrpid = $dict["trustrpid"]; 
+			$this->user_eq_phone = $dict["user_eq_phone"]; 
 		}
 	}
 	public function select_sip_sqlscript(){
 		$sql_script = "SELECT * FROM sip WHERE id = '".$this->account."'";
 		return $sql_script;
 	}
+	public function insert_into_pjsip_sqlscript(){
+		$sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES ";
+
+		return $sql_script;
+	}
+
 	public function insert_into_sip_sqlscript(){
 		$sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES ".
 			"('".$this->account."', 'deny', '".$this->deny."', 2),".

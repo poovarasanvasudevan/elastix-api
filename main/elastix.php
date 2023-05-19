@@ -161,6 +161,75 @@ class Elastix{
 	private function apply_config(){
 		exec("/var/lib/asterisk/bin/module_admin reload", $data);
 	}
+	public function add_pjsip_extension() {
+		$this->_get_db_connection("asterisk");
+		$dict = array(
+			"account" => $_POST["account"],
+			"accountcode" => $_POST["accountcode"],
+			"aggregate_mwi" => isset($_POST["aggregate_mwi"])? $_POST["aggregate_mwi"] : "yes",
+			"allow" => $_POST["allow"],
+			"avpf" => isset($_POST["avpf"])? $_POST["avpf"] : "no",
+			"bundle" => isset($_POST["bundle"])? $_POST["bundle"] : "no",
+			"callerid" => isset($_POST["callerid"])? $_POST["callerid"] : $_POST["account"] . " <" . $_POST["account"] . ">",
+			"context" => isset($_POST["context"])? $_POST["context"] : "from-internal",
+			"defaultuser" => $_POST["defaultuser"],
+			"device_state_busy_at" => isset($_POST["device_state_busy_at"])? $_POST["device_state_busy_at"] : "0",
+			"dial" => isset($_POST["dial"])? $_POST["dial"] : "PJSIP/" . $_POST["account"],
+			"direct_media" => isset($_POST["direct_media"])? $_POST["direct_media"] : "yes",
+			"disallow" => isset($_POST["disallow"])? $_POST["disallow"] : "",
+			"dtmfmode" => isset($_POST["dtmfmode"])? $_POST["dtmfmode"] : "rfc4733",
+			"force_rport" => isset($_POST["force_rport"])? $_POST["force_rport"] : "yes",
+			"icesupport" => isset($_POST["icesupport"])? $_POST["icesupport"] : "no",
+			"match" => isset($_POST["match"])? $_POST["match"] : "",
+			"max_audio_streams" => isset($_POST["max_audio_streams"])? $_POST["max_audio_streams"] : "1",
+			"max_contacts" => isset($_POST["max_contacts"])? $_POST["max_contacts"] : "1",
+			"max_video_streams" => isset($_POST["max_video_streams"])? $_POST["max_video_streams"] : "1",
+			"maximum_expiration" => isset($_POST["maximum_expiration"])? $_POST["maximum_expiration"] : "7200",
+			"media_encryption" => isset($_POST["media_encryption"])? $_POST["media_encryption"] : "no",
+			"media_encryption_optimistic" => isset($_POST["media_encryption_optimistic"])? $_POST["media_encryption_optimistic"] : "no",
+			"media_use_received_transport" => isset($_POST["media_use_received_transport"])? $_POST["media_use_received_transport"] : "no",
+			"message_context" => isset($_POST["message_context"])? $_POST["message_context"] : "",
+			"minimum_expiration" => isset($_POST["minimum_expiration"])? $_POST["minimum_expiration"] : "60",
+			"mwi_subscription" => isset($_POST["mwi_subscription"])? $_POST["mwi_subscription"] : "auto",
+			"namedcallgroup" => isset($_POST["namedcallgroup"])? $_POST["namedcallgroup"] : "",
+			"namedpickupgroup" => isset($_POST["namedpickupgroup"])? $_POST["namedpickupgroup"] : "",
+			"outbound_auth" => isset($_POST["outbound_auth"])? $_POST["outbound_auth"] : "yes",
+			"outbound_proxy" => isset($_POST["outbound_proxy"])? $_POST["outbound_proxy"] : "",
+			"qualifyfreq" => isset($_POST["qualifyfreq"])? $_POST["qualifyfreq"] : "60",
+			"refer_blind_progress" => isset($_POST["refer_blind_progress"])? $_POST["refer_blind_progress"] : "yes",
+			"remove_existing" => isset($_POST["remove_existing"])? $_POST["remove_existing"] : "yes",
+			"rewrite_contact" => isset($_POST["rewrite_contact"])? $_POST["rewrite_contact"] : "yes",
+			"rtcp_mux" => isset($_POST["rtcp_mux"])? $_POST["rtcp_mux"] : "no",
+			"rtp_symmetric" => isset($_POST["rtp_symmetric"])? $_POST["rtp_symmetric"] : "yes",
+			"rtp_timeout" => isset($_POST["rtp_timeout"])? $_POST["rtp_timeout"] : "0",
+			"rtp_timeout_hold" => isset($_POST["rtp_timeout_hold"])? $_POST["rtp_timeout_hold"] : "0",
+			"secret" => $_POST["secret"],
+			"secret_origional" => "",
+			"send_connected_line" => isset($_POST["send_connected_line"])? $_POST["send_connected_line"] : "yes",
+			"sendrpid" => isset($_POST["sendrpid"])? $_POST["sendrpid"] : "pai",
+			"sipdriver" => isset($_POST["sipdriver"])? $_POST["sipdriver"] : "chan_pjsip",
+			"timers" => isset($_POST["timers"])? $_POST["timers"] : "yes",
+			"timers_min_se" => isset($_POST["timers_min_se"])? $_POST["timers_min_se"] : "90",
+			"transport" => isset($_POST["transport"])? $_POST["transport"] : "",
+			"trustrpid" => isset($_POST["trustrpid"])? $_POST["trustrpid"] : "yes",
+			"user_eq_phone" => isset($_POST["user_eq_phone"])? $_POST["user_eq_phone"] : "no",̥
+		);
+		$ext = new Extension($dict , "pjsip_insert");
+		$stmt0 = $this->db->prepare($ext->select_sip_sqlscript());
+		$stmt0->execute();
+		$row = $stmt0->fetch(PDO::FETCH_ASSOC);
+		if(!$row){
+			$stmt1 = $this->db->exec($ext->insert_into_users_sqlscript());
+			$stmt2 = $this->db->exec($ext->insert_into_devices_sqlscript());
+			$stmt3 = $this->db->exec($ext->insert_into_pjsip_sqlscript());
+
+			$this->apply_config();
+		}
+
+		header('Content-Type: application/json');
+		echo '{"status": "INSERT OK", "code": 200}';
+	}
+
 	public function add_sip_extension(){
 		$this->_get_db_connection("asterisk");
 		$dict = array(
