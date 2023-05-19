@@ -96,6 +96,14 @@ class APICommand
                     $ela = new Elastix();
                     $ela->add_pjsip_extension();
                     break;
+                case "updatepjsipextension":
+                    $ela = new Elastix();
+                    $ela->update_pjsip_extension();
+                    break;
+                case "deletepjsipextension":
+                    $ela = new Elastix();
+                    $ela->delete_sip_extension();
+                    break;
                 default:
                     echo "cmd not matched";
                     break;
