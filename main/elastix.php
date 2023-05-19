@@ -181,6 +181,22 @@ class Elastix
         exec("/var/lib/asterisk/bin/fwconsole reload", $data);
     }
 
+    public function reload()
+    {
+        $this->apply_config();
+        header('Content-Type: application/json');
+        echo '{"status": "RELOAD OK", "code": 200}';
+    }
+
+    public function can_reload()
+    {
+        if (isset($_GET['reload']) && $_GET['reload'] == 'true') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function add_pjsip_extension()
     {
         $this->_get_db_connection("asterisk");
@@ -245,7 +261,9 @@ class Elastix
             $stmt2 = $this->db->exec($ext->insert_into_pjsip_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_pjsip_sqlscript());
 
-            $this->apply_config();
+            if($this->can_reload()) {
+                $this->apply_config();
+            }
         }
 
         header('Content-Type: application/json');
@@ -310,7 +328,9 @@ class Elastix
         $ext = new Extension($dict, "update");
         $stmt1 = $this->db->exec($ext->update_pjsip_sqlscript());
         $stmt2 = $this->db->exec($ext->update_pjsip_users_sqlscript());
-        $this->apply_config();
+        if($this->can_reload()) {
+            $this->apply_config();
+        }
         header('Content-Type: application/json');
         echo '{"status": "UPDATE OK", "code": 200}';
     }
@@ -409,7 +429,10 @@ class Elastix
         $stmt1 = $this->db->exec($ext->delete_sip_sqlscript());
         $stmt2 = $this->db->exec($ext->delete_users_sqlscript());
         $stmt3 = $this->db->exec($ext->delete_devices_sqlscript());
-        $this->apply_config();
+
+        if($this->can_reload()) {
+            $this->apply_config();
+        }
         header('Content-Type: application/json');
         echo '{"status": "DELETE OK", "code": 200}';
     }

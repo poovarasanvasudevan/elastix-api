@@ -104,6 +104,10 @@ class APICommand
                     $ela = new Elastix();
                     $ela->delete_sip_extension();
                     break;
+                case "reload":
+                    $ela = new Elastix();
+                    $ela->reload();
+                    break;
                 default:
                     echo "cmd not matched";
                     break;
