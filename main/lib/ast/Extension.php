@@ -92,6 +92,7 @@ class Extension
             $this->transport = $dict["transport"];
             $this->trustrpid = $dict["trustrpid"];
             $this->user_eq_phone = $dict["user_eq_phone"];
+            $this->name = $dict["name"];
         }
     }
 

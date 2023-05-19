@@ -185,6 +185,7 @@ class Elastix
     {
         $this->_get_db_connection("asterisk");
         $dict = array(
+            "name" => $_POST["name"],
             "account" => $_POST["account"],
             "accountcode" => $_POST["accountcode"],
             "aggregate_mwi" => isset($_POST["aggregate_mwi"]) ? $_POST["aggregate_mwi"] : "yes",
