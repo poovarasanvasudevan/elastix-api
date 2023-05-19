@@ -242,7 +242,7 @@ class Elastix
         $row = $stmt0->fetch(PDO::FETCH_ASSOC);
         if (!$row) {
             $stmt1 = $this->db->exec($ext->insert_into_pjsip_users_sqlscript());
-            $stmt2 = $this->db->exec($ext->insert_into_devices_sqlscript());
+            $stmt2 = $this->db->exec($ext->insert_into_pjsip_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_pjsip_sqlscript());
 
             $this->apply_config();

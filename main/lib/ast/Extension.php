@@ -325,6 +325,12 @@ class Extension
         return $sql_script;
     }
 
+    public function insert_into_pjsip_devices_sqlscript()
+    {
+        $sql_script = "INSERT IGNORE INTO devices (id, tech, dial, devicetype, user, description, emergency_cid) VALUES ('" . $this->account . "', 'pjsip', '" . $this->dial . "', 'fixed', '" . $this->account . "', '" . $this->account . "', '')";
+        return $sql_script;
+    }
+
     public function delete_devices_sqlscript()
     {
         $sql_script = "DELETE FROM devices WHERE id = '" . $this->account . "'";
