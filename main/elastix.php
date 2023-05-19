@@ -178,7 +178,7 @@ class Elastix
 
     private function apply_config()
     {
-        exec("/var/lib/asterisk/bin/module_admin reload", $data);
+        exec("/var/lib/asterisk/bin/fwconsole reload", $data);
     }
 
     public function add_pjsip_extension()
