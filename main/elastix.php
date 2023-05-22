@@ -277,6 +277,7 @@ class Elastix
         $dict = array(
             "account" => $_POST["account"],
             "accountcode" => $_POST["accountcode"],
+            "name" => $_POST["name"],
             "aggregate_mwi" => isset($_POST["aggregate_mwi"]) ? $_POST["aggregate_mwi"] : "yes",
             "allow" => $_POST["allow"],
             "avpf" => isset($_POST["avpf"]) ? $_POST["avpf"] : "no",
