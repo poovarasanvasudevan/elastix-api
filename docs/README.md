@@ -28,7 +28,7 @@ This contains two main classes:
 ## Download and Installation:
 To download and install this repository in your Elastix server you need to `connect as ssh` then go to folder `/var/www/html`, then you can write:
 ```shell
-root@elastix# git clone https://github.com/tarek-aec/elastix-api.git
+root@elastix# git clone https://github.com/poovarasanvasudevan/elastix-api.git
 ```
 After download you need to rename folder:
 ```
