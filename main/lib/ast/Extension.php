@@ -106,8 +106,8 @@ class Extension
     public function insert_into_pjsip_sqlscript()
     {
         $sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES " .
-            "('" . $this->account . "', 'secret', '" . $this->deny . "', 2)," .
-            "('" . $this->account . "', 'dtmfmode', '" . $this->deny . "', 3)," .
+            "('" . $this->account . "', 'secret', '" . $this->secret . "', 2)," .
+            "('" . $this->account . "', 'dtmfmode', '" . $this->dtmfmode . "', 3)," .
             "('" . $this->account . "', 'context', '" . $this->context . "', 4)," .
             "('" . $this->account . "', 'defaultuser', '" . $this->defaultuser . "', 5)," .
             "('" . $this->account . "', 'trustrpid', '" . $this->trustrpid . "', 6)," .
@@ -160,8 +160,8 @@ class Extension
     public function update_pjsip_sqlscript()
     {
         $sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES " .
-            "('" . $this->account . "', 'secret', '" . $this->deny . "', 2)," .
-            "('" . $this->account . "', 'dtmfmode', '" . $this->deny . "', 3)," .
+            "('" . $this->account . "', 'secret', '" . $this->secret . "', 2)," .
+            "('" . $this->account . "', 'dtmfmode', '" . $this->dtmfmode . "', 3)," .
             "('" . $this->account . "', 'context', '" . $this->context . "', 4)," .
             "('" . $this->account . "', 'defaultuser', '" . $this->defaultuser . "', 5)," .
             "('" . $this->account . "', 'trustrpid', '" . $this->trustrpid . "', 6)," .
