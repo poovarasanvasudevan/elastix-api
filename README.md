@@ -1,7 +1,4 @@
 <h1 align="center">Elastix API</h1>
-<p align="center">
-	<img src="https://raw.githubusercontent.com/101t/elastix-api/master/docs/cover.png">
-</p>
 
 Elastix and Asterisk API Provider to make FreePBX easy to manage, written in PHP4.
 
@@ -10,7 +7,7 @@ Open your Elastix (CentOS) terminal, and go to elastix directory, then download 
 
 ```
 cd /var/www/html
-git clone https://github.com/101t/elastix-api.git
+git clone github.com/poovarasanvasudevan/elastix-api api
 ```
 
 Open `api.php` and generate token key then replace it in:
@@ -34,11 +31,8 @@ This api package can implement:
 * Check IPTable Status
 * Get Active Call (Live Calls)
 * SIP Trunk / Extension Management (Create, Update, Delete, Read)
+* PJSIP Trunk / Extension Management (Create, Update, Delete, Read)
 * Follow Me Extension Management (Create, Update, Delete, Read)
 
 ## Documentation
-Installation and developer guide [here](https://github.com/101t/elastix-api/wiki).
-
-## Contribute
-
-Thank you for amazing community of FreePBX for useful information.
+Installation and developer guide [here](https://github.com/poovarasanvasudevan/elastix-api/wiki).
