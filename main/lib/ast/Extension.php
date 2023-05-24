@@ -149,9 +149,9 @@ class Extension
             "('" . $this->account . "', 'rtp_timeout', '" . $this->rtp_timeout . "', 42)," .
             "('" . $this->account . "', 'rtp_timeout_hold', '" . $this->rtp_timeout_hold . "', 43)," .
             "('" . $this->account . "', 'outbound_proxy', '" . $this->outbound_proxy . "', 44)," .
-            "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
+         //   "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
             "('" . $this->account . "', 'message_context', '" . $this->message_context . "', 46)," .
-            "('" . $this->account . "', 'secret_origional', '" . $this->secret_origional . "', 47)," .
+            "('" . $this->account . "', 'secret_origional', '" . $this->secret . "', 47)," .
             "('" . $this->account . "', 'sipdriver', '" . $this->sipdriver . "', 48)," .
             "('" . $this->account . "', 'account', '" . $this->account . "', 49)," .
             "('" . $this->account . "', 'callerid', '" . $this->callerid . "', 50)";
@@ -203,9 +203,9 @@ class Extension
             "('" . $this->account . "', 'rtp_timeout', '" . $this->rtp_timeout . "', 42)," .
             "('" . $this->account . "', 'rtp_timeout_hold', '" . $this->rtp_timeout_hold . "', 43)," .
             "('" . $this->account . "', 'outbound_proxy', '" . $this->outbound_proxy . "', 44)," .
-            "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
+          //  "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
             "('" . $this->account . "', 'message_context', '" . $this->message_context . "', 46)," .
-            "('" . $this->account . "', 'secret_origional', '" . $this->secret_origional . "', 47)," .
+            "('" . $this->account . "', 'secret_origional', '" . $this->secret . "', 47)," .
             "('" . $this->account . "', 'sipdriver', '" . $this->sipdriver . "', 48)," .
             "('" . $this->account . "', 'account', '" . $this->account . "', 49)," .
             "('" . $this->account . "', 'callerid', '" . $this->callerid . "', 50)".
