@@ -262,6 +262,7 @@ class Elastix
             $stmt2 = $this->db->exec($ext->insert_into_pjsip_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_pjsip_sqlscript());
             $stmt4 = $this->db->exec($ext->insert_pjsip_cert());
+            $ext->insert_pjsip_db_config();
 
             if($this->can_reload()) {
                 $this->apply_config();
@@ -434,6 +435,7 @@ class Elastix
         $stmt2 = $this->db->exec($ext->delete_users_sqlscript());
         $stmt3 = $this->db->exec($ext->delete_devices_sqlscript());
         $stmt4 = $this->db->exec($ext->delete_pjsip_cert());
+        $ext->delete_pjsip_db_config();
 
         if($this->can_reload()) {
             $this->apply_config();

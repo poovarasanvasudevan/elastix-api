@@ -106,20 +106,21 @@ class Extension
 
     private function add_database_config($key, $value)
     {
-        exec("/usr/sbin/asterisk -rx 'database put " . $key . " " . $value . "'", $data);
+        exec("/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"", $data);
     }
 
-    private function delete_database_config($key, $value)
+    private function delete_database_config($key)
     {
-        exec("/usr/sbin/asterisk -rx 'database del " . $key . " " . $value . "'", $data);
+        exec("/usr/sbin/asterisk -rx 'database del " . $key, $data);
     }
 
-    private function format_ampuser($key) {
-        // $key replace / with space
-        $k = str_replace("/", " ", $key);
-        return "AMPUSER ".$this->account." ".$k;
+    private function format_ampuser($key)
+    {
+        return "AMPUSER " . $this->account . "/" . $key;
     }
-    private function insert_pjsip_sb_config() {
+
+    function insert_pjsip_db_config()
+    {
         $this->add_database_config($this->format_ampuser("accountcode"), "");
         $this->add_database_config($this->format_ampuser("answermode"), "disabled");
         $this->add_database_config($this->format_ampuser("cfringtimer"), "0");
@@ -141,14 +142,14 @@ class Extension
         $this->add_database_config($this->format_ampuser("followme/grplist"), $this->account);
         $this->add_database_config($this->format_ampuser("followme/grppre"), '');
         $this->add_database_config($this->format_ampuser("followme/grptime"), '20');
-        $this->add_database_config($this->format_ampuser("followme/postdest"), 'ext-local,'.$this->account.',dest');
+        $this->add_database_config($this->format_ampuser("followme/postdest"), 'ext-local,' . $this->account . ',dest');
         $this->add_database_config($this->format_ampuser("followme/prering"), '7');
         $this->add_database_config($this->format_ampuser("followme/remotealertmsg"), '');
         $this->add_database_config($this->format_ampuser("followme/ringing"), 'Ring');
         $this->add_database_config($this->format_ampuser("followme/rvolume"), '');
         $this->add_database_config($this->format_ampuser("followme/strategy"), 'ringallv2-prim');
         $this->add_database_config($this->format_ampuser("followme/toolatemsg"), '');
-        $this->add_database_config($this->format_ampuser("hint"), '&Custom:DND'.$this->account.',CustomPresence:'.$this->account);
+        $this->add_database_config($this->format_ampuser("hint"), '&Custom:DND' . $this->account . ',CustomPresence:' . $this->account);
         $this->add_database_config($this->format_ampuser("intercom"), 'enabled');
         $this->add_database_config($this->format_ampuser("intercom/override"), 'reject');
         $this->add_database_config($this->format_ampuser("language"), '');
@@ -166,6 +167,56 @@ class Extension
         $this->add_database_config($this->format_ampuser("ringtimer"), '0');
         $this->add_database_config($this->format_ampuser("rvolume"), '');
         $this->add_database_config($this->format_ampuser("voicemail"), 'novm');
+    }
+
+    function delete_pjsip_db_config()
+    {
+        $this->delete_database_config($this->format_ampuser("accountcode"));
+        $this->delete_database_config($this->format_ampuser("answermode"));
+        $this->delete_database_config($this->format_ampuser("cfringtimer"));
+        $this->delete_database_config($this->format_ampuser("cidname"));
+        $this->delete_database_config($this->format_ampuser("cidnum"));
+        $this->delete_database_config($this->format_ampuser("concurrency_limit"));
+        $this->delete_database_config($this->format_ampuser("cwtone"));
+        $this->delete_database_config($this->format_ampuser("device"));
+        $this->delete_database_config($this->format_ampuser("dictate/email"));
+        $this->delete_database_config($this->format_ampuser("dictate/enabled"));
+        $this->delete_database_config($this->format_ampuser("dictate/format"));
+        $this->delete_database_config($this->format_ampuser("dictate/from"));
+        $this->delete_database_config($this->format_ampuser("followme/annmsg"));
+        $this->delete_database_config($this->format_ampuser("followme/changecid"));
+        $this->delete_database_config($this->format_ampuser("followme/ddial"));
+        $this->delete_database_config($this->format_ampuser("followme/dring"));
+        $this->delete_database_config($this->format_ampuser("followme/fixedcid"));
+        $this->delete_database_config($this->format_ampuser("followme/grpconf"));
+        $this->delete_database_config($this->format_ampuser("followme/grplist"));
+        $this->delete_database_config($this->format_ampuser("followme/grppre"));
+        $this->delete_database_config($this->format_ampuser("followme/grptime"));
+        $this->delete_database_config($this->format_ampuser("followme/postdest"));
+        $this->delete_database_config($this->format_ampuser("followme/prering"));
+        $this->delete_database_config($this->format_ampuser("followme/remotealertmsg"));
+        $this->delete_database_config($this->format_ampuser("followme/ringing"));
+        $this->delete_database_config($this->format_ampuser("followme/rvolume"));
+        $this->delete_database_config($this->format_ampuser("followme/strategy"));
+        $this->delete_database_config($this->format_ampuser("followme/toolatemsg"));
+        $this->delete_database_config($this->format_ampuser("hint"));
+        $this->delete_database_config($this->format_ampuser("intercom"));
+        $this->delete_database_config($this->format_ampuser("intercom/override"));
+        $this->delete_database_config($this->format_ampuser("language"));
+        $this->delete_database_config($this->format_ampuser("noanswer"));
+        $this->delete_database_config($this->format_ampuser("outboundcid"));
+        $this->delete_database_config($this->format_ampuser("password"));
+        $this->delete_database_config($this->format_ampuser("queues/qnostate"));
+        $this->delete_database_config($this->format_ampuser("recording"));
+        $this->delete_database_config($this->format_ampuser("recording/in/external"));
+        $this->delete_database_config($this->format_ampuser("recording/in/internal"));
+        $this->delete_database_config($this->format_ampuser("recording/ondemand"));
+        $this->delete_database_config($this->format_ampuser("recording/out/external"));
+        $this->delete_database_config($this->format_ampuser("recording/out/internal"));
+        $this->delete_database_config($this->format_ampuser("recording/priority"));
+        $this->delete_database_config($this->format_ampuser("ringtimer"));
+        $this->delete_database_config($this->format_ampuser("rvolume"));
+        $this->delete_database_config($this->format_ampuser("voicemail"));
     }
 
     public function insert_into_pjsip_sqlscript()
