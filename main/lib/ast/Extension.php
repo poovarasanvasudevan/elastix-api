@@ -149,7 +149,6 @@ class Extension
             "('" . $this->account . "', 'rtp_timeout', '" . $this->rtp_timeout . "', 42)," .
             "('" . $this->account . "', 'rtp_timeout_hold', '" . $this->rtp_timeout_hold . "', 43)," .
             "('" . $this->account . "', 'outbound_proxy', '" . $this->outbound_proxy . "', 44)," .
-         //   "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
             "('" . $this->account . "', 'message_context', '" . $this->message_context . "', 46)," .
             "('" . $this->account . "', 'secret_origional', '" . $this->secret . "', 47)," .
             "('" . $this->account . "', 'sipdriver', '" . $this->sipdriver . "', 48)," .
@@ -157,6 +156,7 @@ class Extension
             "('" . $this->account . "', 'callerid', '" . $this->callerid . "', 50)";
         return $sql_script;
     }
+
     public function update_pjsip_sqlscript()
     {
         $sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES " .
@@ -203,15 +203,15 @@ class Extension
             "('" . $this->account . "', 'rtp_timeout', '" . $this->rtp_timeout . "', 42)," .
             "('" . $this->account . "', 'rtp_timeout_hold', '" . $this->rtp_timeout_hold . "', 43)," .
             "('" . $this->account . "', 'outbound_proxy', '" . $this->outbound_proxy . "', 44)," .
-          //  "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
             "('" . $this->account . "', 'message_context', '" . $this->message_context . "', 46)," .
             "('" . $this->account . "', 'secret_origional', '" . $this->secret . "', 47)," .
             "('" . $this->account . "', 'sipdriver', '" . $this->sipdriver . "', 48)," .
             "('" . $this->account . "', 'account', '" . $this->account . "', 49)," .
-            "('" . $this->account . "', 'callerid', '" . $this->callerid . "', 50)".
+            "('" . $this->account . "', 'callerid', '" . $this->callerid . "', 50)" .
             " ON DUPLICATE KEY UPDATE id=VALUES(id), keyword=VALUES(keyword) , data=VALUES(data), flags=VALUES(flags)";
         return $sql_script;
     }
+
     public function insert_into_sip_sqlscript()
     {
         $sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES " .
@@ -295,6 +295,7 @@ class Extension
             "('" . $this->account . "', '', '" . $this->name . "', 'novm', 0, '', '', '', '" . $this->account . "', 'default', '', '', '', '', '', '')";
         return $sql_script;
     }
+
     public function insert_into_pjsip_users_sqlscript()
     {
         $sql_script = "INSERT IGNORE INTO users (extension, password, name, voicemail, ringtimer, noanswer, recording, outboundcid, sipname, mohclass, noanswer_cid, busy_cid, chanunavail_cid, noanswer_dest, busy_dest, chanunavail_dest) VALUES " .
@@ -313,6 +314,7 @@ class Extension
         $sql_script = "UPDATE users SET extension='" . $this->account . "', name='" . $this->name . "' WHERE extension = '" . $this->account . "'";
         return $sql_script;
     }
+
     public function delete_users_sqlscript()
     {
         $sql_script = "DELETE FROM users WHERE extension = '" . $this->account . "'";
