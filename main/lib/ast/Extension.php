@@ -106,7 +106,7 @@ class Extension
 
     private function add_database_config($key, $value)
     {
-        $cmd = "/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"";
+        $cmd = "/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"" . "'";
         echo $cmd;
         exec($cmd, $data);
     }
