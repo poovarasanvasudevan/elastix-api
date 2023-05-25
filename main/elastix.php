@@ -261,6 +261,7 @@ class Elastix
             $stmt1 = $this->db->exec($ext->insert_into_pjsip_users_sqlscript());
             $stmt2 = $this->db->exec($ext->insert_into_pjsip_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_pjsip_sqlscript());
+            $stmt4 = $this->db->exec($ext->insert_pjsip_cert());
 
             if($this->can_reload()) {
                 $this->apply_config();
@@ -331,6 +332,7 @@ class Elastix
         $ext = new Extension($dict, "update");
         $stmt1 = $this->db->exec($ext->update_pjsip_sqlscript());
         $stmt2 = $this->db->exec($ext->update_pjsip_users_sqlscript());
+        $stmt3 = $this->db->exec($ext->insert_pjsip_cert());
         if($this->can_reload()) {
             $this->apply_config();
         }
@@ -378,7 +380,6 @@ class Elastix
             $stmt1 = $this->db->exec($ext->insert_into_users_sqlscript());
             $stmt2 = $this->db->exec($ext->insert_into_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_sip_sqlscript());
-            $stmt3 = $this->db->exec($ext->insert_pjsip_cert());
             $this->apply_config();
         }
         header('Content-Type: application/json');
