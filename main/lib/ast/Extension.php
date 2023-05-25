@@ -106,14 +106,14 @@ class Extension
 
     private function add_database_config($key, $value)
     {
-        exec("/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"", $data);
-        echo json_decode($data);
+        $cmd = "/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"";
+        exec($cmd, $data);
     }
 
     private function delete_database_config($key)
     {
-        exec("/usr/sbin/asterisk -rx 'database del " . $key, $data);
-        echo json_decode($data);
+        $cmd ="/usr/sbin/asterisk -rx 'database del " . $key;
+        exec($cmd, $data);
     }
 
     private function format_ampuser($key)
