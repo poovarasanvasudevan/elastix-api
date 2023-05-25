@@ -113,7 +113,7 @@ class Extension
 
     private function delete_database_config($key)
     {
-        $cmd ="/usr/sbin/asterisk -rx 'database del " . $key. "'";
+        $cmd = "/usr/sbin/asterisk -rx 'database del " . $key . "'";
         echo $cmd;
         exec($cmd, $data);
     }
@@ -171,7 +171,13 @@ class Extension
         $this->add_database_config($this->format_ampuser("ringtimer"), '0');
         $this->add_database_config($this->format_ampuser("rvolume"), '');
         $this->add_database_config($this->format_ampuser("voicemail"), 'novm');
-        $this->add_database_config("CW ".$this->account, "ENABLED");
+        $this->add_database_config("CW " . $this->account, "ENABLED");
+        $this->add_database_config("DEVICE " . $this->account . " default_user", $this->account);
+        $this->add_database_config("DEVICE " . $this->account . " dial", "PJSIP/" . $this->account);
+        $this->add_database_config("DEVICE " . $this->account . " tech", "pjsip");
+        $this->add_database_config("DEVICE " . $this->account . " type", "fixed");
+        $this->add_database_config("DEVICE " . $this->account . " user", $this->account);
+
     }
 
     function delete_pjsip_db_config()
@@ -223,7 +229,12 @@ class Extension
         $this->delete_database_config($this->format_ampuser("rvolume"));
         $this->delete_database_config($this->format_ampuser("voicemail"));
 
-        $this->delete_database_config("CW ".$this->account);
+        $this->delete_database_config("CW " . $this->account);
+        $this->delete_database_config("DEVICE " . $this->account . " default_user");
+        $this->delete_database_config("DEVICE " . $this->account . " dial");
+        $this->delete_database_config("DEVICE " . $this->account . " tech");
+        $this->delete_database_config("DEVICE " . $this->account . " type");
+        $this->delete_database_config("DEVICE " . $this->account . " user");
     }
 
     public function insert_into_pjsip_sqlscript()
