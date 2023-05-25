@@ -214,8 +214,13 @@ class Extension
     }
 
     public function insert_pjsip_cert() {
-        $sql_script = "INSERT INTO certman_mapping(id,cid,verify,setup,rekey) VALUES ".
-            "('" . $this->account . "','" . $this->fingerprint . "','fingerprint','actpass','0') ON DUPLICATE KEY UPDATE id=VALUES(id), cid=VALUES(cid), verify=VALUES(verify), actpass=VALUES(actpass), rekey=VALUES(rekey)";
+        $sql_script = "INSERT IGNORE INTO certman_mapping (id,cid,verify,setup,rekey) VALUES ".
+            "('" . $this->account . "','" . $this->fingerprint . "','fingerprint','actpass','0')";
+        return $sql_script;
+    }
+
+    public function delete_pjsip_cert() {
+        $sql_script = "DELETE FROM certman_mapping WHERE id='" . $this->account . "'";
         return $sql_script;
     }
 

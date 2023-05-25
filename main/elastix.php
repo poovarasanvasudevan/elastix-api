@@ -332,7 +332,6 @@ class Elastix
         $ext = new Extension($dict, "update");
         $stmt1 = $this->db->exec($ext->update_pjsip_sqlscript());
         $stmt2 = $this->db->exec($ext->update_pjsip_users_sqlscript());
-        $stmt3 = $this->db->exec($ext->insert_pjsip_cert());
         if($this->can_reload()) {
             $this->apply_config();
         }
@@ -434,6 +433,7 @@ class Elastix
         $stmt1 = $this->db->exec($ext->delete_sip_sqlscript());
         $stmt2 = $this->db->exec($ext->delete_users_sqlscript());
         $stmt3 = $this->db->exec($ext->delete_devices_sqlscript());
+        $stmt4 = $this->db->exec($ext->delete_pjsip_cert());
 
         if($this->can_reload()) {
             $this->apply_config();
