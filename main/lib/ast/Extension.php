@@ -107,14 +107,12 @@ class Extension
     private function add_database_config($key, $value)
     {
         $cmd = "/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"" . "'";
-        echo $cmd;
         exec($cmd, $data);
     }
 
     private function delete_database_config($key)
     {
         $cmd = "/usr/sbin/asterisk -rx 'database del " . $key . "'";
-        echo $cmd;
         exec($cmd, $data);
     }
 
