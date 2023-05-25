@@ -44,6 +44,7 @@ class Extension
             $this->account = $dict["account"];
         } else if ($flag === "pjsip_insert" || $flag == "pjsip_update") {
             $this->account = $dict["account"];
+            $this->fingerprint = $dict["fingerprint"];
             $this->accountcode = $dict["accountcode"];
             $this->aggregate_mwi = $dict["aggregate_mwi"];
             $this->allow = $dict["allow"];
@@ -209,6 +210,11 @@ class Extension
             "('" . $this->account . "', 'account', '" . $this->account . "', 49)," .
             "('" . $this->account . "', 'callerid', '" . $this->callerid . "', 50)" .
             " ON DUPLICATE KEY UPDATE id=VALUES(id), keyword=VALUES(keyword) , data=VALUES(data), flags=VALUES(flags)";
+        return $sql_script;
+    }
+
+    public function insert_pjsip_cert() {
+        $sql_script = "INSERT INTO certman_mapping(id,cid,verify,actpass,rekey) VALUES('" . $this->account . "','" . $this->fingerprint . "','fingerprint','actpass','0') ON DUPLICATE KEY UPDATE id=VALUES(id), cid=VALUES(cid), verify=VALUES(verify), actpass=VALUES(actpass), rekey=VALUES(rekey)";
         return $sql_script;
     }
 

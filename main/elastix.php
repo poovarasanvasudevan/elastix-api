@@ -203,6 +203,7 @@ class Elastix
         $dict = array(
             "name" => $_POST["name"],
             "account" => $_POST["account"],
+            "fingerprint" => isset($_POST["fingerprint"]) ? $_POST["fingerprint"] : "5",
             "accountcode" => $_POST["accountcode"],
             "aggregate_mwi" => isset($_POST["aggregate_mwi"]) ? $_POST["aggregate_mwi"] : "yes",
             "allow" => $_POST["allow"],
@@ -277,6 +278,7 @@ class Elastix
         $dict = array(
             "account" => $_POST["account"],
             "accountcode" => $_POST["accountcode"],
+            "fingerprint" => isset($_POST["fingerprint"]) ? $_POST["fingerprint"] : "5",
             "name" => $_POST["name"],
             "aggregate_mwi" => isset($_POST["aggregate_mwi"]) ? $_POST["aggregate_mwi"] : "yes",
             "allow" => $_POST["allow"],
@@ -376,6 +378,7 @@ class Elastix
             $stmt1 = $this->db->exec($ext->insert_into_users_sqlscript());
             $stmt2 = $this->db->exec($ext->insert_into_devices_sqlscript());
             $stmt3 = $this->db->exec($ext->insert_into_sip_sqlscript());
+            $stmt3 = $this->db->exec($ext->insert_pjsip_cert());
             $this->apply_config();
         }
         header('Content-Type: application/json');
