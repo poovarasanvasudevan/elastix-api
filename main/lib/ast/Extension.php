@@ -104,6 +104,70 @@ class Extension
         return $sql_script;
     }
 
+    private function add_database_config($key, $value)
+    {
+        exec("/usr/sbin/asterisk -rx 'database put " . $key . " " . $value . "'", $data);
+    }
+
+    private function delete_database_config($key, $value)
+    {
+        exec("/usr/sbin/asterisk -rx 'database del " . $key . " " . $value . "'", $data);
+    }
+
+    private function format_ampuser($key) {
+        // $key replace / with space
+        $k = str_replace("/", " ", $key);
+        return "AMPUSER ".$this->account." ".$k;
+    }
+    private function insert_pjsip_sb_config() {
+        $this->add_database_config($this->format_ampuser("accountcode"), "");
+        $this->add_database_config($this->format_ampuser("answermode"), "disabled");
+        $this->add_database_config($this->format_ampuser("cfringtimer"), "0");
+        $this->add_database_config($this->format_ampuser("cidname"), $this->account);
+        $this->add_database_config($this->format_ampuser("cidnum"), $this->account);
+        $this->add_database_config($this->format_ampuser("concurrency_limit"), "0");
+        $this->add_database_config($this->format_ampuser("cwtone"), "disabled");
+        $this->add_database_config($this->format_ampuser("device"), $this->account);
+        $this->add_database_config($this->format_ampuser("dictate/email"), '');
+        $this->add_database_config($this->format_ampuser("dictate/enabled"), 'disabled');
+        $this->add_database_config($this->format_ampuser("dictate/format"), 'ogg');
+        $this->add_database_config($this->format_ampuser("dictate/from"), 'ZGljdGF0ZUBmcmVlcGJ4Lm9yZw==');
+        $this->add_database_config($this->format_ampuser("followme/annmsg"), '');
+        $this->add_database_config($this->format_ampuser("followme/changecid"), 'default');
+        $this->add_database_config($this->format_ampuser("followme/ddial"), 'EXTENSION');
+        $this->add_database_config($this->format_ampuser("followme/dring"), '');
+        $this->add_database_config($this->format_ampuser("followme/fixedcid"), '');
+        $this->add_database_config($this->format_ampuser("followme/grpconf"), 'DISABLED');
+        $this->add_database_config($this->format_ampuser("followme/grplist"), $this->account);
+        $this->add_database_config($this->format_ampuser("followme/grppre"), '');
+        $this->add_database_config($this->format_ampuser("followme/grptime"), '20');
+        $this->add_database_config($this->format_ampuser("followme/postdest"), 'ext-local,'.$this->account.',dest');
+        $this->add_database_config($this->format_ampuser("followme/prering"), '7');
+        $this->add_database_config($this->format_ampuser("followme/remotealertmsg"), '');
+        $this->add_database_config($this->format_ampuser("followme/ringing"), 'Ring');
+        $this->add_database_config($this->format_ampuser("followme/rvolume"), '');
+        $this->add_database_config($this->format_ampuser("followme/strategy"), 'ringallv2-prim');
+        $this->add_database_config($this->format_ampuser("followme/toolatemsg"), '');
+        $this->add_database_config($this->format_ampuser("hint"), '&Custom:DND'.$this->account.',CustomPresence:'.$this->account);
+        $this->add_database_config($this->format_ampuser("intercom"), 'enabled');
+        $this->add_database_config($this->format_ampuser("intercom/override"), 'reject');
+        $this->add_database_config($this->format_ampuser("language"), '');
+        $this->add_database_config($this->format_ampuser("noanswer"), '');
+        $this->add_database_config($this->format_ampuser("outboundcid"), '');
+        $this->add_database_config($this->format_ampuser("password"), '');
+        $this->add_database_config($this->format_ampuser("queues/qnostate"), 'usestate');
+        $this->add_database_config($this->format_ampuser("recording"), '');
+        $this->add_database_config($this->format_ampuser("recording/in/external"), 'dontcare');
+        $this->add_database_config($this->format_ampuser("recording/in/internal"), 'dontcare');
+        $this->add_database_config($this->format_ampuser("recording/ondemand"), 'disabled');
+        $this->add_database_config($this->format_ampuser("recording/out/external"), 'dontcare');
+        $this->add_database_config($this->format_ampuser("recording/out/internal"), 'dontcare');
+        $this->add_database_config($this->format_ampuser("recording/priority"), '0');
+        $this->add_database_config($this->format_ampuser("ringtimer"), '0');
+        $this->add_database_config($this->format_ampuser("rvolume"), '');
+        $this->add_database_config($this->format_ampuser("voicemail"), 'novm');
+    }
+
     public function insert_into_pjsip_sqlscript()
     {
         $sql_script = "INSERT IGNORE INTO sip (id, keyword, data, flags) VALUES " .
@@ -150,6 +214,7 @@ class Extension
             "('" . $this->account . "', 'rtp_timeout', '" . $this->rtp_timeout . "', 42)," .
             "('" . $this->account . "', 'rtp_timeout_hold', '" . $this->rtp_timeout_hold . "', 43)," .
             "('" . $this->account . "', 'outbound_proxy', '" . $this->outbound_proxy . "', 44)," .
+            "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
             "('" . $this->account . "', 'message_context', '" . $this->message_context . "', 46)," .
             "('" . $this->account . "', 'secret_origional', '" . $this->secret . "', 47)," .
             "('" . $this->account . "', 'sipdriver', '" . $this->sipdriver . "', 48)," .
@@ -204,6 +269,7 @@ class Extension
             "('" . $this->account . "', 'rtp_timeout', '" . $this->rtp_timeout . "', 42)," .
             "('" . $this->account . "', 'rtp_timeout_hold', '" . $this->rtp_timeout_hold . "', 43)," .
             "('" . $this->account . "', 'outbound_proxy', '" . $this->outbound_proxy . "', 44)," .
+            "('" . $this->account . "', 'outbound_auth', '" . $this->outbound_auth . "', 45)," .
             "('" . $this->account . "', 'message_context', '" . $this->message_context . "', 46)," .
             "('" . $this->account . "', 'secret_origional', '" . $this->secret . "', 47)," .
             "('" . $this->account . "', 'sipdriver', '" . $this->sipdriver . "', 48)," .
@@ -213,13 +279,15 @@ class Extension
         return $sql_script;
     }
 
-    public function insert_pjsip_cert() {
-        $sql_script = "INSERT IGNORE INTO certman_mapping (id,cid,verify,setup,rekey) VALUES ".
+    public function insert_pjsip_cert()
+    {
+        $sql_script = "INSERT IGNORE INTO certman_mapping (id,cid,verify,setup,rekey) VALUES " .
             "('" . $this->account . "','" . $this->fingerprint . "','fingerprint','actpass','0')";
         return $sql_script;
     }
 
-    public function delete_pjsip_cert() {
+    public function delete_pjsip_cert()
+    {
         $sql_script = "DELETE FROM certman_mapping WHERE id='" . $this->account . "'";
         return $sql_script;
     }
