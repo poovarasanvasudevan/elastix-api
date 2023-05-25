@@ -171,6 +171,7 @@ class Extension
         $this->add_database_config($this->format_ampuser("ringtimer"), '0');
         $this->add_database_config($this->format_ampuser("rvolume"), '');
         $this->add_database_config($this->format_ampuser("voicemail"), 'novm');
+        $this->add_database_config("CW ".$this->account, "ENABLED");
     }
 
     function delete_pjsip_db_config()
@@ -221,6 +222,8 @@ class Extension
         $this->delete_database_config($this->format_ampuser("ringtimer"));
         $this->delete_database_config($this->format_ampuser("rvolume"));
         $this->delete_database_config($this->format_ampuser("voicemail"));
+
+        $this->delete_database_config("CW ".$this->account);
     }
 
     public function insert_into_pjsip_sqlscript()
