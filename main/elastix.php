@@ -212,7 +212,7 @@ class Elastix
     public function dnd()
     {
         if ($_POST["status"] == "true") {
-            $this->add_database_config("DND " . $_POST["extension"], "");
+            $this->add_database_config("DND " . $_POST["extension"], " YES");
         } else {
             $this->delete_database_config("DND " . $_POST["extension"]);
         }
