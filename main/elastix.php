@@ -206,7 +206,6 @@ class Elastix
     private function delete_database_config($key)
     {
         $cmd = "/usr/sbin/asterisk -rx 'database del " . $key . "'";
-        echo $cmd;
         exec($cmd, $data);
     }
 
