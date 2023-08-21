@@ -197,6 +197,30 @@ class Elastix
         }
     }
 
+    private function add_database_config($key, $value)
+    {
+        $cmd = "/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"" . "'";
+        exec($cmd, $data);
+    }
+
+    private function delete_database_config($key)
+    {
+        $cmd = "/usr/sbin/asterisk -rx 'database del " . $key . "'";
+        exec($cmd, $data);
+    }
+
+    public function dnd()
+    {
+        if ($_POST["status"] == "true") {
+            $this->add_database_config("DND " . $_POST["extension"], "");
+        } else {
+            $this->delete_database_config("DND " . $_POST["extension"]);
+        }
+
+        header('Content-Type: application/json');
+        echo '{"status": "OK", "code": 200}';
+    }
+
     public function add_pjsip_extension()
     {
         $this->_get_db_connection("asterisk");
@@ -264,7 +288,7 @@ class Elastix
             $stmt4 = $this->db->exec($ext->insert_pjsip_cert());
             $ext->insert_pjsip_db_config();
 
-            if($this->can_reload()) {
+            if ($this->can_reload()) {
                 $this->apply_config();
             }
         }
@@ -333,7 +357,7 @@ class Elastix
         $ext = new Extension($dict, "update");
         $stmt1 = $this->db->exec($ext->update_pjsip_sqlscript());
         $stmt2 = $this->db->exec($ext->update_pjsip_users_sqlscript());
-        if($this->can_reload()) {
+        if ($this->can_reload()) {
             $this->apply_config();
         }
         header('Content-Type: application/json');
@@ -437,7 +461,7 @@ class Elastix
         $stmt4 = $this->db->exec($ext->delete_pjsip_cert());
         $ext->delete_pjsip_db_config();
 
-        if($this->can_reload()) {
+        if ($this->can_reload()) {
             $this->apply_config();
         }
         header('Content-Type: application/json');

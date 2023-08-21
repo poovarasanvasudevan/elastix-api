@@ -104,6 +104,12 @@ class Extension
         return $sql_script;
     }
 
+    public function select_pjsip_sqlscript() {
+        $sql_script = "SELECT * FROM users WHERE id = '" . $this->account . "'";
+
+        return $sql_script;
+    }
+
     private function add_database_config($key, $value)
     {
         $cmd = "/usr/sbin/asterisk -rx 'database put " . $key . " \"" . $value . "\"" . "'";
@@ -175,7 +181,6 @@ class Extension
         $this->add_database_config("DEVICE " . $this->account . "/tech", "pjsip");
         $this->add_database_config("DEVICE " . $this->account . "/type", "fixed");
         $this->add_database_config("DEVICE " . $this->account . "/user", $this->account);
-
     }
 
     function delete_pjsip_db_config()

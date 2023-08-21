@@ -104,6 +104,10 @@ class APICommand
                     $ela = new Elastix();
                     $ela->delete_sip_extension();
                     break;
+                case "dnd":
+                    $ela = new Elastix();
+                    $ela->dnd();
+                    break;
                 case "reload":
                     $ela = new Elastix();
                     $ela->reload();
@@ -128,7 +132,8 @@ if (isset($_GET["cmd"])) {
     } else {
         echo "key not found";
     }
-} else {
+}
+else {
     echo "test";
 }
 ?>
