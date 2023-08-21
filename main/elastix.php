@@ -206,13 +206,14 @@ class Elastix
     private function delete_database_config($key)
     {
         $cmd = "/usr/sbin/asterisk -rx 'database del " . $key . "'";
+        echo $cmd;
         exec($cmd, $data);
     }
 
     public function dnd()
     {
         if ($_POST["status"] == "true") {
-            $this->add_database_config("DND " . $_POST["extension"], " YES");
+            $this->add_database_config("DND " . $_POST["extension"], "YES");
         } else {
             $this->delete_database_config("DND " . $_POST["extension"]);
         }
